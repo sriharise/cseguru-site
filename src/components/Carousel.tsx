@@ -35,9 +35,11 @@ const Carousel: React.FC = () => {
       {slides.map((slide, index) => (
         <div key={index} className="keen-slider__slide relative">
           <Image src={slide.image} alt={slide.heading} fill className="object-cover" />
-          <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center text-white px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">{slide.heading}</h2>
-            <p className="text-md md:text-lg max-w-2xl">{slide.description}</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="bg-black/20 text-center text-white p-6">
+                <h2 className="text-3xl md:text-4xl font-bold mb-2 text-shadow-lg">{slide.heading}</h2>
+                <p className="text-md md:text-lg max-w-2xl text-shadow-lg">{slide.description}</p>
+            </div>
           </div>
         </div>
       ))}

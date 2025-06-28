@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.cseguru.com
+
+# Sitemaps
+Sitemap: https://www.cseguru.com/sitemap.xml

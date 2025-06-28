@@ -36,16 +36,16 @@ const CourseCards = async () => {
 
   if (!videos.length) {
     return (
-      <section className="py-12 max-w-[1000px] lg:mx-auto text-center">
-        <h3 className="text-2xl font-semibold mb-6">Explore Course Series</h3>
+      <section className="py-12 lg:mx-auto text-center">
+        <h3 className="text-2xl font-bold mb-6 text-[#418B00]">Explore Course Series</h3>
         <p className="text-gray-500">No videos available at the moment. Please check back later.</p>
       </section>
     );
   }
 
   return (
-    <section className="py-12 max-w-[1000px] lg:mx-auto">
-      <h3 className="text-2xl font-semibold mb-6 text-center">Explore Course Series</h3>
+    <section className="py-12 lg:mx-auto">
+      <h3 className="text-2xl font-bold mb-6 text-center text-[#418B00]">Explore Course Series</h3>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {videos.map((video) => {
           const videoUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
@@ -53,28 +53,42 @@ const CourseCards = async () => {
           return (
             <div
               key={video.id.videoId}
-              className="border p-4 rounded-xl shadow hover:shadow-md transition bg-white"
+              className="p-4 rounded-xl bg-white flex flex-col items-center text-center"
             >
-              <div className="relative">
-                <Image $1 loading="lazy" />
-                <Link href={videoUrl} target="_blank" rel="noopener noreferrer"
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <PlayCircle className="$1" aria-label={`Play ${video.snippet.title}`} />
-                </Link>
-              </div>
-              <h4 className="text-lg font-bold mb-2 text-[#3C2B3E]">
+              <h4 className="text-xl text-[16px] font-medium mb-2 text-[#8B5300]">
                 {video.snippet.title.length > 50
                   ? video.snippet.title.slice(0, 50) + '...'
                   : video.snippet.title}
               </h4>
-              <p className="text-sm text-gray-600 mb-4">
-                {video.snippet.description.length > 80
-                  ? video.snippet.description.slice(0, 80) + '...'
+              <div className="relative mb-3">
+                <Image
+                  src={video.snippet.thumbnails.medium.url}
+                  alt={`CSE Guru – ${video.snippet.title}`}
+                  width={320}
+                  height={180}
+                  className="rounded"
+                  loading="lazy"
+                />
+                <Link
+                  href={videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 flex items-center justify-center group"
+                  aria-label={`Play ${video.snippet.title}`}
+                >
+                  <PlayCircle className="h-12 w-12 text-white group-hover:text-[#FFBD33] transition-colors duration-300" />
+                </Link>
+              </div>
+              <p className="text-[13px] text-gray-600 mb-4">
+                {video.snippet.description.length > 200
+                  ? video.snippet.description.slice(0, 200) + '...'
                   : video.snippet.description}
               </p>
-              <Link href={videoUrl} target="_blank" rel="noopener noreferrer"
-                className="inline-block mt-auto bg-[#FFBD33] text-black px-4 py-2 rounded font-semibold hover:underline text-sm"
+              <Link
+                href={videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-auto text-black px-4 py-2 rounded font-semibold text-sm bg-[#FFBD33] border border-[#FFBD33] hover:bg-transparent hover:underline"
               >
                 Watch on YouTube
               </Link>

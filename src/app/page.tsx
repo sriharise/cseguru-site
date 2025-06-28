@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
     <div className={openSans.className}>
       <Header />
 
-      <main className="max-w-7xl mx-auto p-4 pt-0">
+      <main className="max-w-7xl mx-auto p-4 pt-0 lg:p-0">
         <Carousel />
 
         <WelcomeSection />
