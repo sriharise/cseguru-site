@@ -56,8 +56,8 @@ const CourseCards = async () => {
               className="p-4 rounded-xl bg-white flex flex-col items-center text-center"
             >
               <h4 className="text-xl text-[16px] font-medium mb-2 text-[#8B5300]">
-                {video.snippet.title.length > 50
-                  ? video.snippet.title.slice(0, 50) + '...'
+                {video.snippet.title.length > 25
+                  ? video.snippet.title.slice(0, 25) + '...'
                   : video.snippet.title}
               </h4>
               <div className="relative mb-3">

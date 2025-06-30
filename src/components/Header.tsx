@@ -1,31 +1,32 @@
 // src/components/Header.tsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/trainings', label: 'Trainings' },
-  { href: '/services', label: 'Services' },
   { href: '/contact', label: 'Contact' },
 ];
 
 const SearchBox: React.FC<{ isMobile?: boolean }> = ({ isMobile }) => (
   <div className={`bg-white shadow-md`}>
     <input
-    type="text"
-    placeholder="Search..."
-    className="border px-3 py-1 text-sm text-black w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-300 lg:w-30"
+      type="text"
+      placeholder="Search..."
+      className="border px-3 py-1 text-sm text-black w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-300 lg:w-30"
     />
   </div>
 );
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
@@ -49,13 +50,14 @@ const Header: React.FC = () => {
                 <Link
                   key={href}
                   href={href}
-                  className="relative hover:text-yellow-300 hover:after:w-full after:transition-all after:duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-yellow-300 after:w-0"
+                  className={`relative ${
+                    pathname === href ? 'text-yellow-300 after:w-full' : 'hover:text-yellow-300 hover:after:w-full'
+                  } after:transition-all after:duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-yellow-300 after:w-0`}
                 >
                   {label}
                 </Link>
               ))}
-              
-            <SearchBox />
+              <SearchBox />
             </nav>
           </div>
 
@@ -78,7 +80,7 @@ const Header: React.FC = () => {
                 key={href}
                 href={href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-[16px] font-bold hover:text-yellow-300"
+                className={`block text-[16px] font-bold ${pathname === href ? 'text-yellow-300 underline' : 'hover:text-yellow-300'}`}
               >
                 {label}
               </Link>
