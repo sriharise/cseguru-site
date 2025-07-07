@@ -20,6 +20,7 @@ const SearchBox: React.FC<{ isMobile?: boolean }> = ({ isMobile }) => (
       type="text"
       placeholder="Search..."
       className="border px-3 py-1 text-sm text-black w-full focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-300 lg:w-30"
+      disabled
     />
   </div>
 );
@@ -36,7 +37,9 @@ const Header: React.FC = () => {
         <div className="w-full flex justify-between items-center max-w-7xl lg:px-0 px-4 mx-auto border-b-[3px] border-[#3C2B3E]">
           {/* Logo + Tagline */}
           <div className="flex items-center gap-[5px] py-[15px]">
-            <Image src="/logo.png" alt="CSE Guru" width={138} height={60} />
+            <Link href="/">
+              <Image src="/logo.png" alt="CSE Guru" width={138} height={60} />
+            </Link>
             <Image src="/tagline.png" alt="Lets learn together" width={120} height={24} />
           </div>
 
@@ -46,17 +49,23 @@ const Header: React.FC = () => {
             style={{ backgroundColor: '#3C2B3E', clipPath: 'polygon(50px 0%, 100% 0%, 100% 100%, 0% 100%)' }}
           >
             <nav className="flex items-center space-x-[90px] text-[14px] font-bold text-white">
-              {navLinks.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`relative ${
-                    pathname === href ? 'text-yellow-300 after:w-full' : 'hover:text-yellow-300 hover:after:w-full'
-                  } after:transition-all after:duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-yellow-300 after:w-0`}
-                >
-                  {label}
-                </Link>
-              ))}
+              {navLinks.map(({ href, label }) => {
+                const isActive = href === '/trainings'
+                  ? pathname.startsWith('/trainings')
+                  : pathname === href;
+
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`relative ${
+                      isActive ? 'text-yellow-300 after:w-full' : 'hover:text-yellow-300 hover:after:w-full'
+                    } after:transition-all after:duration-300 after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:bg-yellow-300 after:w-0`}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
               <SearchBox />
             </nav>
           </div>

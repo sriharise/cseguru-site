@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "About Us | CSE Guru",
   description:
     "Learn about CSE Guru — an educational platform dedicated to simplifying computer science for students and teachers. Discover our mission, vision, and story.",
