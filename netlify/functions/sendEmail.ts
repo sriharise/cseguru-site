@@ -1,4 +1,3 @@
-// netlify/functions/sendEmail.ts
 import type { Handler } from '@netlify/functions';
 import nodemailer from 'nodemailer';
 
@@ -13,10 +12,9 @@ const handler: Handler = async (event) => {
   try {
     const { name, email, message, token } = JSON.parse(event.body || '{}');
 
-    // Verify reCAPTCHA
+    // 1. CAPTCHA Verification
     const secretKey = process.env.RECAPTCHA_SECRET_KEY!;
     const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
-
     const captchaRes = await fetch(verifyUrl, { method: 'POST' });
     const captchaData = await captchaRes.json();
 
@@ -27,7 +25,7 @@ const handler: Handler = async (event) => {
       };
     }
 
-    // Send email using Nodemailer
+    // 2. Nodemailer setup
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -36,12 +34,21 @@ const handler: Handler = async (event) => {
       },
     });
 
+    // 3. Compose the email with name + email + message
     const mailOptions = {
-      from: `"${name}" <${process.env.EMAIL_USER!}>`, // Use your sender address
-      replyTo: email, // Allows you to reply to user directly
+      from: `"${name}" <${process.env.EMAIL_USER!}>`, // sender name shows up
+      replyTo: email, // allows replying to user's actual email
       to: process.env.EMAIL_RECEIVER!,
-      subject: `New Contact Form Submission from ${name}`,
-      text: message,
+      subject: `New message from ${name}`,
+      text: `
+      You've received a new message from CSE Guru Contact Form:
+
+      Name: ${name}
+      Email: ${email}
+
+      Message:
+      ${message}
+      `.trim(),
     };
 
     await transporter.sendMail(mailOptions);
@@ -51,10 +58,10 @@ const handler: Handler = async (event) => {
       body: JSON.stringify({ success: true }),
     };
   } catch (error) {
-    console.error('Email send error:', error);
+    console.error('Send email failed:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Email sending failed. Try again later.' }),
+      body: JSON.stringify({ error: 'Email sending failed' }),
     };
   }
 };
