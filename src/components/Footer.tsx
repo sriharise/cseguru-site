@@ -17,13 +17,13 @@ const Footer: React.FC = () => {
         <div className="flex flex-col items-center md:items-start">
           <Image src="/logo.png" alt="CSE Guru Logo" width={100} height={40} className="mb-4" />
           <div className="flex gap-4">
-            <a href="#" aria-label="Facebook" className="bg-black p-2 rounded-full">
+            <a href="#" aria-label="Facebook" target="_blank"className="bg-black p-2 rounded-full">
               <Facebook className="text-white w-5 h-5" />
             </a>
-            <a href="#" aria-label="Instagram" className="bg-black p-2 rounded-full">
+            <a href="https://www.instagram.com/cseguru_official/" target="_blank" aria-label="Instagram" className="bg-black p-2 rounded-full">
               <Instagram className="text-white w-5 h-5" />
             </a>
-            <a href="#" aria-label="YouTube" className="bg-black p-2 rounded-full">
+            <a href="https://www.youtube.com/@cseguru" aria-label="YouTube" target="_blank" className="bg-black p-2 rounded-full">
               <Youtube className="text-white w-5 h-5" />
             </a>
           </div>
