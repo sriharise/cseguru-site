@@ -62,7 +62,7 @@ export default function ContactForm() {
           <input name="name" type="text" placeholder="Name" onChange={handleChange} className="w-full p-2 border" required />
           <input name="email" type="email" placeholder="Email" onChange={handleChange} className="w-full p-2 border" required />
           <textarea name="message" placeholder="Message" onChange={handleChange} className="w-full p-2 border min-h-[100px]" required />
-          <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} onChange={setToken} />
+          <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''} onChange={setToken} />
           <button
             type="submit"
             disabled={loading}
